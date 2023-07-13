@@ -1,0 +1,81 @@
+package examples;
+import java.util.Scanner;
+import java.io.FileOutputStream;
+import java.io.DataOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+public class DataOutputStreamDemo {
+
+	public static void main(String[] args) {
+		String fileName;
+		FileOutputStream fout=null;
+		DataOutputStream dos=null;
+		Scanner in=new Scanner(System.in);
+		try {
+				String name;
+				int id;
+				double cgpa;
+				fileName=in.next();
+				fout=new FileOutputStream(fileName,true);
+				dos=new DataOutputStream(fout);
+				System.out.println("Student ID:");
+				id=in.nextInt();
+				System.out.println("Student Name:");
+				name=in.next();
+				System.out.println("cgpa");
+				cgpa=in.nextDouble();
+				dos.writeUTF(name);
+				dos.writeInt(id);
+				dos.writeDouble(cgpa);
+				/*dos.writeUTF("Karthik");
+				dos.writeInt(1001);
+				dos.writeDouble(9.9);*/
+				dos.close();
+				fout.close();
+				
+		}catch(FileNotFoundException ex) {
+			System.out.println("Error"+ex.getMessage());
+		}
+		catch(IOException ex) {
+			System.out.println("ERROR"+ex.getMessage());
+		}
+		
+	}
+
+}
+----------------------------------------------------------------------------------------
+package examples;
+import java.io.*;
+
+public class DataInputStreamDemo {
+
+	public static void main(String[] args) {
+		FileInputStream file=null;
+		DataInputStream dis=null;
+		String fileName=new java.util.Scanner(System.in).nextLine();
+		try {
+			file=new FileInputStream(fileName);
+			dis=new DataInputStream(file);
+			while(true) {
+				try {
+					System.out.println("Student Name:"+dis.readUTF());
+					System.out.println("Student ID:"+dis.readInt());
+					System.out.println("CGPA:"+dis.readDouble());
+				}
+				catch(EOFException ex) {
+					break;
+				}
+				catch(IOException ex){
+					System.out.println("Error"+ex.getMessage());
+				}
+			}
+		}
+		catch(FileNotFoundException ex) {
+			System.out.println(fileName+"does not exist!");
+		}
+		
+
+	}
+
+}
