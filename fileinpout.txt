@@ -1,0 +1,60 @@
+package examples;
+import java.io.*;
+import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+public class Prog1 {
+
+	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
+		String oldFile;
+		oldFile = in.next();
+		FileInputStream fin = null;
+		try{
+		fin = new FileInputStream(oldFile);
+		while(true) {
+		int ch = fin.read();
+		if(ch==-1)break;
+		System.out.print((char)ch);
+		}
+		}
+		catch(FileNotFoundException ex){
+		System.out.println(oldFile + " does not exist!");
+
+		}
+		catch(IOException ex){}
+
+	}
+
+}
+----------------------------------------------------------------------
+2)
+package examples;
+import java.util.Scanner;
+import java.io.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
+public class FileCreateDemo {
+
+	public static void main(String[] args) {
+		Scanner in=new Scanner(System.in);
+		FileOutputStream fout=null;
+		String filename;
+		filename=in.next();
+		try {
+			fout=new FileOutputStream(filename,true);
+			//fout.write('A');
+			String str="You are all engineers";
+			fout.write(str.getBytes());
+			fout.close();
+		}
+		catch(FileNotFoundException ex) {
+			System.out.println("Filecreation error");
+		}
+		catch(IOException ex) {
+			System.out.println(ex.getMessage());
+		}
+	}
+
+}
